@@ -18,6 +18,9 @@ file(GLOB_RECURSE SRC_FILES src/*.cpp)
 add_executable(
   test
   ${SRC_FILES})
+target_include_directories(
+  test
+  PRIVATE /usr/x86_64-w64-mingw32/include)
 target_compile_features(
   test
   PRIVATE cxx_std_20)
@@ -31,6 +34,3 @@ target_link_libraries(
   test
   stdc++
   gdi32)
-target_include_directories(
-  test
-  PRIVATE /usr/x86_64-w64-mingw32/include)
