@@ -5,8 +5,7 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 HINSTANCE g_hInst;
 LPCTSTR lpszClass = TEXT("First");
 
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
-                     LPSTR lpszCmdParam, int nCmdShow) {
+int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdParam, int nCmdShow) {
   HWND hWnd;
   MSG Message;
   WNDCLASS WndClass;
@@ -24,9 +23,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
   WndClass.style = CS_HREDRAW | CS_VREDRAW;
   RegisterClass(&WndClass);
 
-  hWnd = CreateWindow(lpszClass, lpszClass, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT,
-                      CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, NULL,
-                      (HMENU)NULL, hInstance, NULL);
+  hWnd = CreateWindow(lpszClass, lpszClass, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
+                      CW_USEDEFAULT, NULL, (HMENU)NULL, hInstance, NULL);
   ShowWindow(hWnd, nCmdShow);
 
   while (GetMessage(&Message, NULL, 0, 0)) {
@@ -36,8 +34,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
   return (int)Message.wParam;
 }
 
-LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam,
-                         LPARAM lParam) {
+LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam) {
   switch (iMessage) {
   case WM_DESTROY:
     PostQuitMessage(0);
