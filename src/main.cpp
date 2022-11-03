@@ -1,11 +1,16 @@
 #include <iostream>
 #include <windows.h>
 
+#include <spdlog/spdlog.h>
+#include <fmt/core.h>
+
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 HINSTANCE g_hInst;
 LPCTSTR lpszClass = TEXT("First");
 
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdParam, int nCmdShow) {
+  spdlog::info(fmt::format("I'd rather be {1} than {0}.", "right", "happy"));
+
   HWND hWnd;
   MSG Message;
   WNDCLASS WndClass;
