@@ -67,8 +67,8 @@ target_link_libraries(
   stdc++
   gdi32
   fmt::fmt
-  glfw
-  spdlog::spdlog)
+  spdlog::spdlog
+  glfw)
 
 add_custom_target(run
   COMMAND ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.exe
