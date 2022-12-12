@@ -7,9 +7,6 @@ cmake_minimum_required(VERSION 3.25)
 # - build
 # cmake --build build
 # ----------------------------------------------
-# - build and run executable
-# cmake --build build -t run
-# ----------------------------------------------
 
 # set target operating to windows
 set(CMAKE_SYSTEM_NAME Windows)
@@ -40,7 +37,6 @@ project(exe_from_linux
 
 # get dependencies using CPM
 include(cmake/CPM.cmake)
-CPMAddPackage("gh:glfw/glfw#3.3.8")
 CPMAddPackage("gh:fmtlib/fmt#9.1.0")
 CPMAddPackage(
   GITHUB_REPOSITORY gabime/spdlog
@@ -67,10 +63,4 @@ target_link_options(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
   stdc++
   gdi32
-  glfw
   spdlog::spdlog)
-
-add_custom_target(run
-  COMMAND ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.exe
-  DEPENDS ${PROJECT_NAME}
-  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
