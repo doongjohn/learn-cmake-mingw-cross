@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.25)
 
 # ----------------------------------------------
 # - generate build files
@@ -15,9 +15,9 @@ cmake_minimum_required(VERSION 3.24)
 set(CMAKE_SYSTEM_NAME Windows)
 
 # set compiler to mingw
-set(CMAKE_C_COMPILER x86_64-w64-mingw32-gcc)
-set(CMAKE_CXX_COMPILER x86_64-w64-mingw32-g++)
-set(CMAKE_RC_COMPILER x86_64-w64-mingw32-windres)
+set(CMAKE_C_COMPILER /usr/bin/x86_64-w64-mingw32-gcc)
+set(CMAKE_CXX_COMPILER /usr/bin/x86_64-w64-mingw32-g++)
+set(CMAKE_RC_COMPILER /usr/bin/x86_64-w64-mingw32-windres)
 
 # where is the target environment located
 set(CMAKE_FIND_ROOT_PATH /usr/x86_64-w64-mingw32)
@@ -30,12 +30,6 @@ set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 
-# get dependencies using CPM
-include(cmake/CPM.cmake)
-CPMAddPackage("gh:fmtlib/fmt#7.1.3")
-CPMAddPackage("gh:gabime/spdlog#v1.x")
-CPMAddPackage("gh:glfw/glfw#3.3.8")
-
 # generate compile_commands.json
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
@@ -44,31 +38,37 @@ project(exe_from_linux
   LANGUAGES CXX
 )
 
+# get dependencies using CPM
+include(cmake/CPM.cmake)
+CPMAddPackage("gh:glfw/glfw#3.3.8")
+CPMAddPackage("gh:fmtlib/fmt#9.1.0")
+CPMAddPackage(
+  GITHUB_REPOSITORY gabime/spdlog
+  VERSION 1.x
+  OPTIONS "SPDLOG_FMT_EXTERNAL ON"
+)
+
 # get all cpp source files
 file(GLOB_RECURSE SRC_FILES src/*.cpp)
 
-add_executable(
-  ${PROJECT_NAME}
+add_executable(${PROJECT_NAME}
   ${SRC_FILES})
 
-target_compile_features(
-  ${PROJECT_NAME}
-  PRIVATE cxx_std_20)
-
-target_link_options(
-  ${PROJECT_NAME}
+target_compile_features(${PROJECT_NAME}
   PRIVATE
-  -static
-  -static-libstdc++
-  -static-libgcc)
+    cxx_std_20)
 
-target_link_libraries(
-  ${PROJECT_NAME}
+target_link_options(${PROJECT_NAME}
+  PRIVATE
+    -static
+    -static-libstdc++
+    -static-libgcc)
+
+target_link_libraries(${PROJECT_NAME}
   stdc++
   gdi32
-  fmt::fmt
-  spdlog::spdlog
-  glfw)
+  glfw
+  spdlog::spdlog)
 
 add_custom_target(run
   COMMAND ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.exe
