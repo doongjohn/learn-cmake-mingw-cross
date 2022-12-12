@@ -1,3 +1,6 @@
+// theForger's Win32 API Programming Tutorial
+// http://www.winprog.org/tutorial/simple_window.html
+
 #include <iostream>
 #include <windows.h>
 
