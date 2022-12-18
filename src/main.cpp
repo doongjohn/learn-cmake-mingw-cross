@@ -4,7 +4,10 @@
 #include <iostream>
 #include <windows.h>
 
+#include <nlohmann/json.hpp>
 #include <spdlog/spdlog.h>
+
+using json = nlohmann::json;
 
 const char g_szClassName[] = "myWindowClass";
 
@@ -25,6 +28,16 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
   spdlog::info(fmt::format("I'd rather be {1} than {0}.", "right", "happy"));
+
+  json j = {{"pi", 3.141},
+            {"happy", true},
+            {"name", "Niels"},
+            {"nothing", nullptr},
+            {"answer", {{"everything", 42}}},
+            {"list", {1, 0, 2}},
+            {"object", {{"currency", "USD"}, {"value", 42.99}}}};
+
+  spdlog::info(j.dump(2));
 
   WNDCLASSEX wc;
   HWND hwnd;

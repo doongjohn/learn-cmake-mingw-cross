@@ -43,10 +43,20 @@ CPMAddPackage(
   VERSION 1.x
   OPTIONS "SPDLOG_FMT_EXTERNAL ON"
 )
+CPMAddPackage(
+  NAME nlohmann_json
+  VERSION 3.11.2
+  # the git repo is incredibly large, so we download the archived include directory
+  URL https://github.com/nlohmann/json/releases/download/v3.11.2/include.zip
+  URL_HASH SHA256=e5c7a9f49a16814be27e4ed0ee900ecd0092bfb7dbfca65b5a421b774dccaaed
+)
+if (nlohmann_json_ADDED)
+  add_library(nlohmann_json INTERFACE IMPORTED)
+  target_include_directories(nlohmann_json INTERFACE ${nlohmann_json_SOURCE_DIR}/include)
+endif()
 
 # get all cpp source files
 file(GLOB_RECURSE SRC_FILES src/*.cpp)
-
 add_executable(${PROJECT_NAME}
   ${SRC_FILES})
 
@@ -63,4 +73,5 @@ target_link_options(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
   stdc++
   gdi32
-  spdlog::spdlog)
+  spdlog::spdlog
+  nlohmann_json)
