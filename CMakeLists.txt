@@ -57,8 +57,7 @@ endif()
 
 # get all cpp source files
 file(GLOB_RECURSE SRC_FILES src/*.cpp)
-add_executable(${PROJECT_NAME}
-  ${SRC_FILES})
+add_executable(${PROJECT_NAME} ${SRC_FILES})
 
 target_compile_features(${PROJECT_NAME}
   PRIVATE
@@ -67,11 +66,10 @@ target_compile_features(${PROJECT_NAME}
 target_link_options(${PROJECT_NAME}
   PRIVATE
     -static
-    -static-libstdc++
-    -static-libgcc)
+    -static-libgcc
+    -static-libstdc++)
 
 target_link_libraries(${PROJECT_NAME}
-  stdc++
   gdi32
   spdlog::spdlog
   nlohmann_json)
