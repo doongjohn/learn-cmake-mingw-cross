@@ -61,9 +61,7 @@ target_compile_features(${PROJECT_NAME}
   PRIVATE cxx_std_20)
 
 target_link_options(${PROJECT_NAME}
-  PRIVATE -static
-  PRIVATE -static-libgcc
-  PRIVATE -static-libstdc++)
+  PRIVATE -static)
 
 target_link_libraries(${PROJECT_NAME}
   gdi32
